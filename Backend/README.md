@@ -78,7 +78,91 @@ The request body must be a JSON object with the following structure:
   }
   ```
 
+---
+
+# User Login Endpoint Documentation
+
+## Endpoint
+
+`POST /user/login`
+
+## Description
+Authenticates a user with email and password. Returns a JWT token and user info on success.
+
+## Request Body
+The request body must be a JSON object with the following structure:
+
+```
+{
+  "email": "string (valid email, required)",
+  "password": "string (min 6 chars, required)"
+}
+```
+
+### Example
+```
+{
+  "email": "john.doe@example.com",
+  "password": "securePassword123"
+}
+```
+
+## Responses
+
+### Success
+- **Status Code:** `200 OK`
+- **Body:**
+  ```json
+  {
+    "token": "<jwt_token>",
+    "user": {
+      "email": "john.doe@example.com",
+      "fullName": {
+        "firstName": "John",
+        "lastName": "Doe"
+      }
+    }
+  }
+  ```
+
+### Validation Error
+- **Status Code:** `400 Bad Request`
+- **Body:**
+  ```json
+  {
+    "errors": [
+      {
+        "msg": "Error message",
+        "param": "fieldName",
+        "location": "body"
+      }
+      // ...more errors
+    ]
+  }
+  ```
+
+### Unauthorized
+- **Status Code:** `401 Unauthorized`
+- **Body:**
+  ```json
+  {
+    "message": "Invalid email or password"
+  }
+  ```
+
+### Other Errors
+- **Status Code:** `500 Internal Server Error`
+- **Body:**
+  ```json
+  {
+    "error": "Error message"
+  }
+  ```
+
+---
+
 ## Notes
-- The `email` must be unique.
+- The `email` must be unique for registration.
 - The `password` is securely hashed before storage.
 - The response includes a JWT token for authentication.
+- Passwords are never returned in responses.
