@@ -161,6 +161,86 @@ The request body must be a JSON object with the following structure:
 
 ---
 
+# User Profile Endpoint Documentation
+
+## Endpoint
+
+`GET /user/profile`
+
+## Description
+Returns the authenticated user's profile information. Requires a valid JWT token in the `Authorization` header or as a cookie.
+
+## Authentication
+- Requires Bearer token in `Authorization` header or `token` cookie.
+
+## Request
+- No request body required.
+
+## Responses
+
+### Success
+- **Status Code:** `200 OK`
+- **Body:**
+  ```json
+  {
+    "_id": "<user_id>",
+    "fullName": {
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "email": "john.doe@example.com"
+    // ...other user fields
+  }
+  ```
+
+### Unauthorized
+- **Status Code:** `401 Unauthorized`
+- **Body:**
+  ```json
+  {
+    "message": "Unauthorized!"
+  }
+  ```
+
+---
+
+# User Logout Endpoint Documentation
+
+## Endpoint
+
+`POST /user/logout`
+
+## Description
+Logs out the authenticated user by blacklisting the JWT token and clearing the authentication cookie. Requires a valid JWT token in the `Authorization` header or as a cookie.
+
+## Authentication
+- Requires Bearer token in `Authorization` header or `token` cookie.
+
+## Request
+- No request body required.
+
+## Responses
+
+### Success
+- **Status Code:** `200 OK`
+- **Body:**
+  ```json
+  {
+    "message": "Logged out successfully"
+  }
+  ```
+
+### Unauthorized
+- **Status Code:** `401 Unauthorized`
+- **Body:**
+  ```json
+  {
+    "message": "Unauthorized!"
+  }
+  ```
+
+---
+
 ## Notes
 - The `email` must be unique for registration.
 - The `password` is securely hashed before storage.
