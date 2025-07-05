@@ -24,6 +24,7 @@ const captainSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 6,
+    select: false,
   },
   socketId: {
     type: String,
@@ -44,7 +45,7 @@ const captainSchema = new mongoose.Schema({
       type: String,
       required: true,
       unique: true,
-      match: /^[A-Z0-9]{1,7}$/,
+      match: /^[A-Z0-9]{1,10}$/,
     },
     capacity: {
       type: Number,
@@ -60,11 +61,9 @@ const captainSchema = new mongoose.Schema({
   location: {
     lat: {
       type: Number,
-      required: true,
     },
     lng: {
       type: Number,
-      required: true,
     },
   },
 });
@@ -77,8 +76,7 @@ captainSchema.methods.generateAuthToken = function () {
 };
 
 captainSchema.methods.comparePassword = async function (Password) {
-  const captain = this;
-  const isMatch = await bcrypt.compare(Password, captain.password);
+  const isMatch = await bcrypt.compare(Password, this.password);
   return isMatch;
 };
 

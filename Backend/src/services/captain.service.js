@@ -21,13 +21,13 @@ module.exports.createCaptain = async ({
     throw new Error("All fields are required");
   }
 
-  const captain = new captainModel({
+  const captain = captainModel.create({
     fullName: {
       firstName,
       lastName: lastName || "",
     },
     email,
-    password: await captainModel.hashPassword(password),
+    password,
     vehicle: {
       color,
       plate,
