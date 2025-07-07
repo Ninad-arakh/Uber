@@ -15,8 +15,9 @@ const UserLogin = () => {
   return (
     <div className="p-7 flex h-screen flex-col justify-between">
       <div>
+        <img className="w-16 mb-2" alt='Uber logo' src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" />
         <form onSubmit={handleSubmit} >
-          <h3 className="text-xl mb-2">What's your email</h3>
+          <h3 className="text-xl font-semibold mb-2">What's your email</h3>
           <input
           value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -25,7 +26,7 @@ const UserLogin = () => {
             required
             className="bg-[#e8f0fe]  mb-7 rounded-lg px-4 py-2 w-full placeholder:text-sm"
           />
-          <h3 className="text-xl mb-2">Enter Password</h3>
+          <h3 className="text-xl font-semibold mb-2">Enter Password</h3>
           <input
             value={password}
             onChange={(e) => setPassword(e.target.value)}

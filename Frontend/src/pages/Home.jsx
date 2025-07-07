@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div>
         <div style={{ backgroundImage: `url(${UberBg})` }} 
-        className="bg-cover bg-center h-screen pt-5 w-full bg-red-400 flex justify-between flex-col">
+        className="bg-cover bg-center h-screen pt-5 w-full flex justify-between flex-col">
             <img className="w-16 ml-8" alt='Uber logo' src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" />
             <div className="bg-white py-5 px-4 pb-8">
                 <h2 className='text-3xl font-bold '>Welcome to Uber</h2>

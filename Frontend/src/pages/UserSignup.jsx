@@ -6,11 +6,19 @@ const UserSignup = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [userData, setUserData] = useState({})
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
+    setUserData({
+      fullName: {
+        firstName,
+        lastName
+      },
+      email,
+      password
+    })
     setFirstName("");
     setLastName("");
     setEmail("");
@@ -19,7 +27,9 @@ const UserSignup = () => {
 
   return (
     <div className="p-7 flex h-screen flex-col justify-between">
+      
       <div>
+        <img className="w-16 mb-2" alt='Uber logo' src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" />
         <form onSubmit={handleSubmit}>
           <h3 className="text-xl font-medium mb-2">Enter your name</h3>
           <div className="flex gap-4 mb-7">
