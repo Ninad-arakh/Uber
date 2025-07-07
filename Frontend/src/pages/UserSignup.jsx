@@ -1,24 +1,38 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../constants/constants";
+import axios from "axios";
+import {userDataContext} from "../context/UserContext";
 
 const UserSignup = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userData, setUserData] = useState({})
+  
+  const {user, setUser} = useContext(userDataContext);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setUserData({
+    const newUser = {
       fullName: {
         firstName,
-        lastName
+        lastName,
       },
       email,
-      password
-    })
+      password,
+    };
+
+    const res = await axios.post(BASE_URL+"users/register", newUser);
+
+    if(res.status === 201){
+      setUser(res?.data?.user)
+      navigate('/home');
+    }
+
     setFirstName("");
     setLastName("");
     setEmail("");
@@ -27,9 +41,12 @@ const UserSignup = () => {
 
   return (
     <div className="p-7 flex h-screen flex-col justify-between">
-      
       <div>
-        <img className="w-16 mb-2" alt='Uber logo' src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" />
+        <img
+          className="w-16 mb-2"
+          alt="Uber logo"
+          src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png"
+        />
         <form onSubmit={handleSubmit}>
           <h3 className="text-xl font-medium mb-2">Enter your name</h3>
           <div className="flex gap-4 mb-7">
@@ -83,7 +100,11 @@ const UserSignup = () => {
         </p>
       </div>
       <div>
-        <p className="text-xs leading-tight">By proceeding, you consent to get calls, WhatsApps or SMS messages, including by automated means, from Uber and its affiliates to the email provided.</p>
+        <p className="text-xs leading-tight">
+          By proceeding, you consent to get calls, WhatsApps or SMS messages,
+          including by automated means, from Uber and its affiliates to the
+          email provided.
+        </p>
       </div>
     </div>
   );
