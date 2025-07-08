@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import { BASE_URL } from '../constants/constants';
 
 const CaptainLogin = () => {
   const [email, setEmail] = useState("");
@@ -8,8 +9,22 @@ const CaptainLogin = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
   
-      setEmail("");
-      setPassword("");
+      const dataObj = {
+      email: email, 
+      password: password
+    }
+
+    const res = await axios.post(BASE_URL+"captains/login", dataObj);
+    console.log(res);
+
+    if(res.status === 200){
+      setUser(res?.data?.user);
+      localStorage.setItem("token", res?.data?.token);
+      navigate('/home');
+    }
+
+    setEmail("");
+    setPassword("");
     }
 
   return (
