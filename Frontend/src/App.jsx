@@ -8,6 +8,7 @@ import Start from "./pages/Start";
 import Home from "./pages/Home";
 import UserProtectedWrapper from "./pages/UserProtectedWrapper";
 import UserLogout from "./pages/UserLogout";
+import CaptainProtectedWrapper from "./pages/CaptainProtectedWrapper";
 
 function App() {
   return (
@@ -30,9 +31,9 @@ function App() {
         <Route
           path="/users/logout"
           element={
-            <UserProtectedWrapper>
+            <CaptainProtectedWrapper>
               <UserLogout />
-            </UserProtectedWrapper>
+            </CaptainProtectedWrapper>
           }
         />
       </Routes>
