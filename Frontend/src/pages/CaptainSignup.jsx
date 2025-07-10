@@ -1,35 +1,47 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const CaptainSignup = () => {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [captainData, setCaptainData] = useState({})
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      setCaptainData({
-        fullName:{
-          firstName,
-          lastName
-        },
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [captainData, setCaptainData] = useState({});
+
+  const navigate = useNavigate();
+
+  useEffect(() =>{
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/home");
+    }
+  },[])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setCaptainData({
+      fullName: {
+        firstName,
         lastName,
-        email,
-        password
-      })
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPassword("");
-    };
+      },
+      lastName,
+      email,
+      password,
+    });
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPassword("");
+  };
   return (
     <div className="p-7 flex h-screen flex-col justify-between">
-      
       <div>
-        <img className="w-16 mb-1" alt='Uber logo' src="https://www.svgrepo.com/show/505031/uber-driver.svg" />
+        <img
+          className="w-16 mb-1"
+          alt="Uber logo"
+          src="https://www.svgrepo.com/show/505031/uber-driver.svg"
+        />
         <form onSubmit={handleSubmit}>
           <h3 className="text-xl font-medium mb-2">Enter your name</h3>
           <div className="flex gap-4 mb-7">
@@ -83,10 +95,14 @@ const CaptainSignup = () => {
         </p>
       </div>
       <div>
-        <p className="text-xs leading-tight">By proceeding, you consent to get calls, WhatsApps or SMS messages, including by automated means, from Uber and its affiliates to the email provided.</p>
+        <p className="text-xs leading-tight">
+          By proceeding, you consent to get calls, WhatsApps or SMS messages,
+          including by automated means, from Uber and its affiliates to the
+          email provided.
+        </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CaptainSignup
+export default CaptainSignup;
