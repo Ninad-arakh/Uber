@@ -12,3 +12,5 @@ export const locations = [
   "606 Fir Street, Buenos Aires, Argentina",
   "707 Palm Parkway, Dubai, UAE"
 ]
+
+// nothingnew
